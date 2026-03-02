@@ -1,0 +1,49 @@
+.landing-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-landing);
+    transition: var(--transition-slow);
+}
+
+.landing-content {
+    max-width: 600px;
+    animation: fadeIn 2s ease-out;
+}
+
+.landing-message {
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.4;
+    color: var(--text-primary);
+}
+
+.landing-message span {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 1rem;
+    font-weight: 400;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .landing-message {
+        font-size: 1.8rem;
+    }
+}
