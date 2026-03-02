@@ -1,0 +1,16 @@
+.ethical-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    padding: 1rem;
+    text-align: center;
+    pointer-events: none;
+}
+
+.ethical-footer p {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    opacity: 0.5;
+    max-width: 400px;
+    margin: 0 auto;
+}

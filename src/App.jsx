@@ -1,32 +1,39 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import LandingScreen from './components/LandingScreen';
+import CalmMode from './components/CalmMode';
+import EthicalFooter from './components/EthicalFooter';
+import { useStressEngine } from './hooks/useStressEngine';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isCalmMode, setIsCalmMode] = useState(false);
+  const stressEngine = useStressEngine(!isCalmMode);
+
+  // Automatically activate Calm Mode if stress is elevated
+  useEffect(() => {
+    if (stressEngine.stressLevel === 'Elevated' && !isCalmMode) {
+      setIsCalmMode(true);
+    }
+  }, [stressEngine.stressLevel, isCalmMode]);
+
+  const handleSessionComplete = () => {
+    setIsCalmMode(false);
+  };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount(count => count + 1)}>count is: {count}</button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      {isCalmMode ? (
+        <CalmMode
+          onComplete={handleSessionComplete}
+          tapScore={stressEngine.tapScore}
+          stabilityScore={stressEngine.stabilityScore}
+        />
+      ) : (
+        <LandingScreen />
+      )}
+      <EthicalFooter />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
